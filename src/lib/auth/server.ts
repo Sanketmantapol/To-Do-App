@@ -10,8 +10,9 @@ import prisma from "../db/prisma";
 
 export const auth = betterAuth({
   baseURL: process.env.APP_URL,
+  secret: process.env.BETTER_AUTH_SECRET!,
   cookie: {
-    secure: process.env.NODE_ENV === "production", //secure in prod
+    secure: process.env.NODE_ENV === "production", 
     sameSite: "lax",
     httpOnly: true,
   },
@@ -32,7 +33,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: false,
     autoSignIn: true, //set cookie immediately
     minPasswordLength: 8,
     sendResetPassword: async ({ user, url }) => {
@@ -44,7 +45,7 @@ export const auth = betterAuth({
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
       if (process.env.NODE_ENV === "development") {
-        console.log(`Verification url for ${user.email}: ${url}`);
+        console.log(`Verification url for ${user.email}: ${url}`)
       }
     },
   },

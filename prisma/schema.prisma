@@ -5,18 +5,20 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/app/generated/prisma"
+  provider = "prisma-client-js"
+  
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
 
 model User {
   id            String    @id @default(cuid())
   name          String
-  email         String?
+  email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
@@ -24,13 +26,14 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posts         Posts[]
+  todos         Todo[]
 
   role       String    @default("customer")
   banned     Boolean   @default(false)
   banReason  String?
   banExpires DateTime?
 
-  @@index([name])
+  @@index([id])
   @@map("user")
 }
 
@@ -96,3 +99,20 @@ model Posts {
   @@index([id])
   @@map("posts")
 }
+
+model Todo {
+  id        String   @id @default(uuid())
+  title     String
+  completed Boolean  @default(false)
+  attachmentURL  String?
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("todos")
+}
+

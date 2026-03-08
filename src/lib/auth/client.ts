@@ -1,9 +1,9 @@
-import { admin, user, ac } from "@/src/lib/auth/access";
+import { admin, user, ac } from "@/lib/auth/access";
 import { createAuthClient } from "better-auth/client";
 import { adminClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.APP_URL,
+   baseURL: process.env.BETTER_AUTH_BASE_URL,
   plugins: [
     adminClient({
       ac,
@@ -34,6 +34,8 @@ export {
 };
 
 export const signIn = authClient.signIn.email;
+export const signUp = authClient.signUp.email;
+
 
 export const isAuthenticated = () =>
   authClient.getSession().then((session) => !!session.data?.user);
