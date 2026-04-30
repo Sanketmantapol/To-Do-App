@@ -3,7 +3,8 @@ import type { NextRequest } from "next/server"
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
-  const sessionCookie = req.cookies.get("better-auth.session_token")
+ const sessionCookie = req.cookies.get("better-auth.session_token") || 
+                       req.cookies.get("__Secure-better-auth.session_token")
 
   const authRoutes = ["/login", "/register", "/signup", "/forgot-password"]
 
