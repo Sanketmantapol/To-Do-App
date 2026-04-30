@@ -27,7 +27,7 @@ const LoginPage = () => {
     }
 
     router.push("/todos");
-    // router.refresh();
+    
   };
 
   return (
