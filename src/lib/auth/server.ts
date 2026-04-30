@@ -13,6 +13,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     process.env.APP_URL!,
     "https://to-do-r8q7f49c5-sanket-man-tapols-projects.vercel.app",
+    "https://*.vercel.app",
   ],
   secret: process.env.BETTER_AUTH_SECRET!,
   cookie: {
@@ -38,7 +39,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
-    autoSignIn: true, //set cookie immediately
+    autoSignIn: true, 
     minPasswordLength: 8,
     sendResetPassword: async ({ user, url }) => {
       if (process.env.NODE_ENV === "development") {
