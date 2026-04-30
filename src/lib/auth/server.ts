@@ -10,7 +10,10 @@ import prisma from "../db/prisma";
 
 export const auth = betterAuth({
   baseURL: process.env.APP_URL,
-  trustedOrigins: [process.env.APP_URL!],
+  trustedOrigins: [
+    process.env.APP_URL!,
+    "https://to-do-r8q7f49c5-sanket-man-tapols-projects.vercel.app",
+  ],
   secret: process.env.BETTER_AUTH_SECRET!,
   cookie: {
     secure: process.env.NODE_ENV === "production", 
